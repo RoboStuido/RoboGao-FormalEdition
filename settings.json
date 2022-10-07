@@ -1,0 +1,5 @@
+{
+  "TOKEN": "TOKEN_Here",
+  "OWNER_ID": "PutYourIdHere",
+  "slash_command_guilds": "[guild_id_here, remove_double_quotes]"
+}
