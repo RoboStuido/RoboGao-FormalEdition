@@ -26,7 +26,6 @@ class Tools(commands.Cog):
       ip = get('https://api.ipify.org').text
       await ctx.author.send(f'當前的對外IP是: {ip}')
       await ctx.respond(f'已傳送', delete_after=3)
-
     else :
       await ctx.respond(f'你沒有權限執行該指令', delete_after=3)
 
@@ -45,6 +44,10 @@ class Tools(commands.Cog):
   @discord.slash_command(guild_ids=slash_command_guilds, name='anyacursor', description='取得安妮亞游標的下載網址')
   async def sendmessage(self, ctx: discord.ApplicationContext):
     await ctx.respond(f'下載網址: https://cutt.ly/AnyaCursors')
+
+  @discord.slash_command(guild_ids=slash_command_guilds, name='sourcecode', description='取得本機器人的源代碼')
+  async def sendmessage(self, ctx: discord.ApplicationContext):
+    await ctx.respond(f'源代碼在這: https://github.com/RoboStuido/RoboGao-FormalEdition')
 
 def setup(bot):
   bot.add_cog(Tools(bot))
