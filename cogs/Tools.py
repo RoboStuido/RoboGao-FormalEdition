@@ -63,7 +63,7 @@ class Tools(commands.Cog):
 
     if after.channel is not None:
       if str(after.channel) == "點我建立語音頻道":
-        channel = await after.channel.clone(name=f'{member.name} 的語音')
+        channel = await after.channel.clone(name=f'{member.display_name} 的語音')
 
         if channel is not None:
           await member.move_to(channel)
