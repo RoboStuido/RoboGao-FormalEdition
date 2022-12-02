@@ -12,6 +12,7 @@ class Tools(commands.Cog):
   def __init__(self, bot):
     self.bot = bot
     self.owner_id = settings['OWNER_ID']
+    self.TempChannel_json = './assets/TempChannel.json'
   
   slash_command_guilds = settings['slash_command_guilds']
 
@@ -42,12 +43,58 @@ class Tools(commands.Cog):
       await ctx.respond(f'你沒有權限執行該指令!', delete_after=5)
 
   @discord.slash_command(guild_ids=slash_command_guilds, name='anyacursor', description='取得安妮亞游標的下載網址')
-  async def sendmessage(self, ctx: discord.ApplicationContext):
+  async def anyacursor(self, ctx: discord.ApplicationContext):
     await ctx.respond(f'下載網址: https://cutt.ly/AnyaCursors')
 
   @discord.slash_command(guild_ids=slash_command_guilds, name='sourcecode', description='取得本機器人的源代碼')
   async def sendmessage(self, ctx: discord.ApplicationContext):
     await ctx.respond(f'源代碼在這: https://github.com/RoboStuido/RoboGao-FormalEdition')
+
+  @commands.Cog.listener()
+  async def on_voice_state_update(self, member, before, after):    
+    if member.bot:
+      return
+
+    with open(self.TempChannel_json, 'a+') as f:
+      with open(self.TempChannel_json, 'r+') as f:
+        chs = json.load(f)
+
+    if after.channel is not None:
+      if str(after.channel) == "點我建立語音頻道":
+        channel = await after.channel.clone(name=f'{member.name} 的語音')
+
+        if channel is not None:
+          await member.move_to(channel)
+          
+          if (f'{channel.guild.id}') in chs:
+            chs[f'{channel.guild.id}'][f'{channel.id}'] = f'{channel}'
+          else:
+            chs[f'{channel.guild.id}'] = {}
+            chs[f'{channel.guild.id}'][f'{channel.id}'] = f'{channel}'
+
+          open(self.TempChannel_json, 'w').write(
+            json.dumps(chs, sort_keys=True, indent=4, separators=(',', ': '))
+          )
+
+    if before.channel is not None:
+      if str(before.channel) != "點我建立語音頻道":
+        if (len(before.channel.members) == 0):
+          try:
+            if str(chs[f'{before.channel.guild.id}'][f'{before.channel.id}']) == str(before.channel):
+              await before.channel.delete()
+              del chs[f'{before.channel.guild.id}'][f'{before.channel.id}']
+          except:
+            pass
+
+          try:
+              if len(chs[f'{before.channel.guild.id}']) == 0:
+                del chs[f'{before.channel.guild.id}']
+          except:
+            pass
+      
+          open(self.TempChannel_json, 'w').write(
+            json.dumps(chs, sort_keys=True, indent=4, separators=(',', ': '))
+          )
 
 def setup(bot):
   bot.add_cog(Tools(bot))
