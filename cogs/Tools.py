@@ -2,6 +2,8 @@ import discord
 from discord import Option
 from discord.ext import commands
 
+from time import sleep
+
 import sys
 import json
 sys.path.append('..')
@@ -51,9 +53,9 @@ class Tools(commands.Cog):
     await ctx.respond(f'源代碼在這: https://github.com/RoboStuido/RoboGao-FormalEdition')
 
   @commands.Cog.listener()
-  async def on_voice_state_update(self, member, before, after):    
+  async def on_voice_state_update(self, member, before, after):
     if member.bot:
-      return
+      sleep(500/1000)
 
     with open(self.TempChannel_json, 'a+') as f:
       with open(self.TempChannel_json, 'r+') as f:
