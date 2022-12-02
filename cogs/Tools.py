@@ -55,7 +55,7 @@ class Tools(commands.Cog):
   @commands.Cog.listener()
   async def on_voice_state_update(self, member, before, after):
     if member.bot:
-      sleep(500/1000)
+      sleep(1)
 
     with open(self.TempChannel_json, 'a+') as f:
       with open(self.TempChannel_json, 'r+') as f:
