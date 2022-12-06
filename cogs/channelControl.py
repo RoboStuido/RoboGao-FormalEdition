@@ -29,10 +29,10 @@ class channelControl(commands.Cog):
     with open(self.TempChannel_json, 'r+') as f:
       chs = json.load(f)
 
-    createTime = datetime.datetime.strptime(chs[f'{channel.guild.id}'][f'{channel.id}'][f'create_at'], '%Y-%m-%d %H:%M:%S')
+    createTime = datetime.strptime(chs[f'{channel.guild.id}'][f'{channel.id}'][f'create_at'], '%Y-%m-%d %H:%M:%S')
 
-    _nowTime = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    nowTime = datetime.datetime.strptime(_nowTime, '%Y-%m-%d %H:%M:%S')
+    _nowTime = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    nowTime = datetime.strptime(_nowTime, '%Y-%m-%d %H:%M:%S')
 
     uptime = nowTime - createTime
 
@@ -59,7 +59,7 @@ class channelControl(commands.Cog):
           chs[f'{channel.guild.id}'][f'{channel.id}'] = f'{channel}'
 
           if (f'create_at' and f'name') not in chs[f'{channel.guild.id}'][f'{channel.id}']:
-            chs[f'{channel.guild.id}'][f'{channel.id}'][f'create_at'] = f'{datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}'
+            chs[f'{channel.guild.id}'][f'{channel.id}'][f'create_at'] = f'{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}'
             chs[f'{channel.guild.id}'][f'{channel.id}'][f'name'] = f'{channel}'
 
     if before.channel is not None:
