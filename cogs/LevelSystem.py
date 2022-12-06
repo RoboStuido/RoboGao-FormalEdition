@@ -91,7 +91,7 @@ async def CreateBanner(self, userr, percent, xp, next_level_xp, level):
 
     return File(fp=background.image_bytes, filename='./assets/LevelSystem/bg.png')
 
-class LevelSystem(commands.Cog):
+class levelSystem(commands.Cog):
   def __init__(self, bot):
     self.bot = bot
     self.json_path = './assets/LevelSystem/LevelsData.json'
@@ -223,4 +223,4 @@ class LevelSystem(commands.Cog):
 
 
 def setup(client):
-  client.add_cog(LevelSystem(client))
+  client.add_cog(levelSystem(client))
