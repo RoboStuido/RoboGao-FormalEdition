@@ -18,8 +18,8 @@ class channelControl(commands.Cog):
   
   slash_command_guilds = settings['slash_command_guilds']
 
-  @discord.slash_command(guild_ids=slash_command_guilds, name='wip_voicechanneluptime', description='獲取語音頻道存在時長')
-  async def wip_voicechanneluptime(self, ctx: discord.ApplicationContext):
+  @discord.slash_command(guild_ids=slash_command_guilds, name='voicechanneluptime', description='獲取語音頻道存在時長')
+  async def voicechanneluptime(self, ctx: discord.ApplicationContext):
     try:
       channel = ctx.author.voice.channel
     except:
@@ -36,7 +36,7 @@ class channelControl(commands.Cog):
 
     uptime = nowTime - createTime
 
-    await ctx.respond(f'{channel.mention} 已經建立了 {uptime}', ephemeral=True)
+    await ctx.respond(f'{channel.mention} 建立於 {uptime} 前', ephemeral=True)
 
   @commands.Cog.listener()
   async def on_voice_state_update(self, member, before, after):
