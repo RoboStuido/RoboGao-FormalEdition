@@ -56,7 +56,7 @@ class channelControl(commands.Cog):
           if (f'{channel.guild.id}') not in chs:
             chs[f'{channel.guild.id}'] = {}
           
-          chs[f'{channel.guild.id}'][f'{channel.id}'] = f'{channel}'
+          chs[f'{channel.guild.id}'][f'{channel.id}'] = {}
 
           if (f'create_at' and f'name') not in chs[f'{channel.guild.id}'][f'{channel.id}']:
             chs[f'{channel.guild.id}'][f'{channel.id}'][f'create_at'] = f'{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}'
@@ -64,7 +64,7 @@ class channelControl(commands.Cog):
 
     if before.channel is not None:
       if str(before.channel) != "點我建立語音頻道":
-        if (len(channel.members) == 0):
+        if (len(before.channel.members) == 0):
           channel = before.channel
           try:
             if str(chs[f'{channel.guild.id}'][f'{channel.id}'][f'name']) == str(channel):
