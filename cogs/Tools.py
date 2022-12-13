@@ -38,7 +38,7 @@ class Tools(commands.Cog):
     if ctx.author.guild_permissions.manage_messages:
       deleted = await ctx.channel.purge(limit=amount, check=lambda msg: not msg.pinned)
       await ctx.respond(f'已刪除 {len(deleted)} 條訊息', delete_after=5)
-    else :
+    else:
       await ctx.respond(f'你沒有權限執行該指令!', delete_after=5)
 
   @discord.slash_command(guild_ids=slash_command_guilds, name='anyacursor', description='取得安妮亞游標的下載網址')
